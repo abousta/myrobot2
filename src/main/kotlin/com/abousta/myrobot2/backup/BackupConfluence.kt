@@ -1,4 +1,4 @@
-package com.abousta.myrobot2.backup.confluence
+package com.abousta.myrobot2.backup
 
 import com.microsoft.playwright.BrowserType
 import com.microsoft.playwright.Page

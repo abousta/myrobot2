@@ -1,4 +1,4 @@
-package com.abousta.myrobot2.backup.todoist
+package com.abousta.myrobot2.backup
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.github.cdimascio.dotenv.dotenv
@@ -11,7 +11,7 @@ fun main() {
 
     // Chargement api token depuis .env
     val dotenv = dotenv { directory = "." }
-    val token = dotenv["TODOIST_TOKEN"]
+    val token = dotenv["TODOIST_API_KEY"]
 
     val client = OkHttpClient()
 
