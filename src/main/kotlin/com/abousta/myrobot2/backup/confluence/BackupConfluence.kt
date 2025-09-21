@@ -1,8 +1,9 @@
-package com.abousta.myrobot2.backupconfluence
+package com.abousta.myrobot2.backup.confluence
 
 import com.microsoft.playwright.BrowserType
 import com.microsoft.playwright.Page
 import com.microsoft.playwright.Playwright
+import io.github.cdimascio.dotenv.dotenv
 import java.nio.file.Paths
 import javax.swing.JOptionPane
 import javax.swing.JPasswordField
@@ -17,8 +18,6 @@ import javax.swing.JPasswordField
  * Et se logger pour la première fois avec bitwarden-cli :
  * - flatpak run --command=bw com.bitwarden.desktop login (ça enverra une vérif par mail)
  */
-
-private const val BACKUP_DIR = "/home/abousta/data/Backup/Confluence"
 private const val CONFLUENCE_URL = "https://abousta.atlassian.net/wiki"
 private const val SPACE_IDS = "Musique,Info,MaisonVoit,Family,Boustacorp"
 private const val BW_CONFLUENCE = "Atlassian abousta gmail"
@@ -87,7 +86,9 @@ fun getBWSession(): String {
 }
 
 fun main() {
-    // Récupère session BW
+    val backupDir = dotenv()["BACKUP_DIR"]+"/Confluence"
+
+    // Récupère session BitWarden
     val sessionKey = getBWSession()
 
     // Récupérer mot de passe Atlassian depuis Bitwarden CLI
@@ -143,7 +144,8 @@ fun main() {
             val download = page.waitForDownload {
                 page.click("a.space-export-download-path")
             }
-            val dest = Paths.get(BACKUP_DIR).resolve("${spaceKey}-export.zip")
+
+            val dest = Paths.get(backupDir).resolve("${spaceKey}-export.zip")
             download.saveAs(dest)
             println("✔ Export sauvegardé : $dest")
 
