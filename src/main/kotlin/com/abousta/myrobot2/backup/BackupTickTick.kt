@@ -70,10 +70,6 @@ fun main() {
         download.saveAs(dest)
         println("✔ Export Tick Tick sur : $dest")
 
-
-        readlnOrNull()
-
-
         context.close()
         browser.close()
     }
