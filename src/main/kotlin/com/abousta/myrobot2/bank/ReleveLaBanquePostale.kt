@@ -12,7 +12,7 @@ import java.util.regex.Pattern
 import kotlin.io.path.writeText
 
 
-private const val tempFolderPath = "/home/abousta/progs/myrobot/data/compta/temp"
+const val tempFolderPath = "/home/abousta/progs/myrobot/data/compta/temp"
 
 private const val iframeSelector = "iframe[name=\"iFrame1\"]"
 

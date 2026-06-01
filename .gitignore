@@ -44,3 +44,5 @@ bin/
 ### Mac OS ###
 .DS_Store
 .env
+/data/csv_from_excel/compte_perso.csv
+/data/csv_from_excel/compte_pro.csv

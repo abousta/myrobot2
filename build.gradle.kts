@@ -16,7 +16,12 @@ dependencies {
     implementation("com.microsoft.playwright:playwright:1.55.0") // Pour parcourir les sites (comme selenium)
     implementation("com.squareup.okhttp3:okhttp:5.1.0") // Pour lancer des liens http
     implementation("io.github.cdimascio:dotenv-kotlin:6.5.1") // Pour charger les vars depuis les fichiers .env
+    // Pour lire le CSV
+    implementation("com.opencsv:opencsv:5.12.0")
+    // Pour SQLite (via JDBC)
+    implementation("org.xerial:sqlite-jdbc:3.53.1.0")
     testImplementation(kotlin("test"))
+
 }
 
 application {
