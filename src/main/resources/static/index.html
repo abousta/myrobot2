@@ -1,1 +1,79 @@
-<H1>Compta</H1>
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Compta</title>
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <link rel="stylesheet" href="index.css">
+
+    <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x"></script>
+
+
+
+    <style>
+        .line-grid {
+            display: grid;
+            grid-template-columns: 120px 1fr 120px 200px 120px;
+            gap: 8px;
+            align-items: center;
+            padding: 6px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .line-actions {
+            display: flex;
+            gap: 6px;
+            justify-content: flex-end;
+        }
+
+        input[readonly] {
+            border: none;
+            background: transparent;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body class="container">
+
+<!-- Header d'actions -->
+<header class="topbar">
+
+    <div class="left">
+        <h1>Compta</h1>
+    </div>
+
+    <div class="right">
+
+        <select id="account" name="account">
+            <option value="perso">Perso</option>
+            <option value="pro">Pro</option>
+        </select>
+
+        <button>Relevés</button>
+        <button>Import</button>
+
+    </div>
+
+</header>
+
+<main>
+    <!-- Filtres de recherche -->
+    <section>
+        <form></form>
+    </section>
+    <!-- Relevés bancaires TODO Revoir les hx -->
+    <section
+            id="lines"
+            hx-get="/bank-lines"
+            hx-trigger="load, change from:#account, change from:#startDate, change from:#endDate, change from:#unvalidated"
+            hx-include="#account, #startDate, #endDate, #unvalidated"
+            hx-swap="innerHTML">
+    </section>
+</main>
+
+</body>
+</html>

@@ -1,0 +1,31 @@
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 6px 10px;
+    border-bottom: 1px solid #ddd;
+    gap: 12px;
+}
+
+/* gauche */
+.topbar .left h1 {
+    font-size: 16px;
+    margin: 0;
+    font-weight: 600;
+}
+
+/* droite */
+.topbar .right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* réduire taille Pico (important) */
+.topbar button,
+.topbar select {
+    padding: 4px 8px;
+    font-size: 14px;
+    height: 32px;
+}

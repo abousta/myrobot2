@@ -1,10 +1,8 @@
 UI
 
-# Technos
-* Créer un module spring boot
 
 # Section du haut
-  * Affichage et changement de compte
+  * Affichage et changement de compte (envoie cette info à chaque requête htmx grâce à htmx-include)
   * Lance le relevé bancaire avec playwright
   * Lance l'ajout des nouvelles lignes téléchargées dans la bdd
 
@@ -14,7 +12,7 @@ UI
     * Non validés (case à cocher)
     * Les labels qui sont identiques ou qui ressemblent
     * Les tags (on peut en cumuler)
-  * Afficher les 100 derniers relevés si aucun filtre précisé 
+  * Afficher les 100 derniers relevés si aucun filtre précisé (avec htmx-load et htmlx-include du compte)
   * Pouvoir modifier tout champ de la ligne sauf l'id avec alpinejs pour passer en mode édition et htmx pour valider en ajax le changement
   * Pouvoir supprimer une ligne après confirmation avec htmx
   * Afficher les soldes
