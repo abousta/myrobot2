@@ -2,12 +2,16 @@ package com.abousta.myrobot2.bank
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.opencsv.CSVParserBuilder
+import org.springframework.stereotype.Service
+import java.nio.file.Files
+import java.nio.file.Paths
 import java.sql.Connection
 import java.sql.Types
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
 
+@Service
 class BankLineService {
 
     private val excelCsvParser = CSVParserBuilder()
@@ -123,5 +127,25 @@ class BankLineService {
             .toLong()
 
         return Money(cents)
+    }
+
+    /**
+     * Enregistre en bdd les nouvelles lignes qui ont été téléchargées du site la banque postale
+     */
+    fun storeNewLines() {
+        /*// Récupérer la dernière date qu'il y a en bdd
+        val lastDate = fetchLastDate()
+
+        val lines = Files.lines(Paths.get(tempFolderPath).resolve("compte_perso.csv"))
+            .skip(7) // Ignore l'en-tête du fichier
+            .map { line ->
+                val splittedLine = line.split(";")
+                *//*BankLine(
+                    date = LocalDate.parse(splittedLine[0].trim(), dateFormat),
+                    label = splittedLine[1].trim(),
+                    amount = BigDecimal(splittedLine[2].trim().replace("€", "").replace(" ", "").replace(",", ".")),
+                )*//*
+            }
+        lines.forEach { println(it) }*/
     }
 }

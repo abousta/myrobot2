@@ -53,8 +53,8 @@
             <option value="pro">Pro</option>
         </select>
 
-        <button>Relevés</button>
-        <button>Import</button>
+        <button hx-post="/download-bank-lines" hx-swap="none">Relevés</button>
+        <button hx-post="/import-new-lines" hx-swap="none">Mettre à jour bdd avec relevés téléchargés</button>
 
     </div>
 

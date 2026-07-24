@@ -1,7 +1,7 @@
 plugins {
-    kotlin("jvm") version "2.2.21"
-    kotlin("plugin.spring") version "2.2.21"
-    id("org.springframework.boot") version "4.0.6"
+    kotlin("jvm") version "2.4.0"
+    kotlin("plugin.spring") version "2.4.0"
+    id("org.springframework.boot") version "4.1.0"
     id("io.spring.dependency-management") version "1.1.7"
     application
 }
@@ -19,8 +19,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-jdbc")
 
     // Json
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.15.2")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.15.2")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 
     // Playwright
     implementation("com.microsoft.playwright:playwright:1.55.0") // Pour parcourir les sites (comme selenium)
@@ -30,6 +29,11 @@ dependencies {
     implementation("com.opencsv:opencsv:5.12.0")
     // Pour SQLite (via JDBC)
     implementation("org.xerial:sqlite-jdbc:3.53.1.0")
+
+    // Jsoup
+    implementation("org.jsoup:jsoup:1.22.2")
+
+    // Test
     testImplementation(kotlin("test"))
 
 }
@@ -42,5 +46,5 @@ tasks.test {
     useJUnitPlatform()
 }
 kotlin {
-    jvmToolchain(21)
+    jvmToolchain(25)
 }
