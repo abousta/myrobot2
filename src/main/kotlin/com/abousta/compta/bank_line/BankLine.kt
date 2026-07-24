@@ -1,5 +1,7 @@
-package com.abousta.compta
+package com.abousta.compta.bank_line
 
+import com.abousta.compta.infrastructure.Money
+import com.abousta.compta.account.AccountType
 import java.time.LocalDate
 
 data class BankLine(

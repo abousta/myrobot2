@@ -1,5 +1,7 @@
-package com.abousta.compta
+package com.abousta.compta.bank_line
 
+import com.abousta.compta.infrastructure.Money
+import com.abousta.compta.account.AccountType
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import org.springframework.jdbc.core.RowMapper

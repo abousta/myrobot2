@@ -1,4 +1,4 @@
-package com.abousta.compta
+package com.abousta.compta.infrastructure
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper

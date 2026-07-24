@@ -1,5 +1,6 @@
-package com.abousta.compta
+package com.abousta.compta.bank_line
 
+import com.abousta.compta.account.AccountType
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource
@@ -43,6 +44,17 @@ class BankLineRepository(
                     .addValue("amount", amount.cents)
             )
         }
+    }
+
+    /**
+     * Somme des mouvements entre deux dates, toutes deux incluses
+     */
+    fun sumBetweenTwoDates(dateMin: LocalDate, dateMax: LocalDate, accountType: AccountType): Int {
+        val dateMinString = sqlDateFormat.format(dateMin)
+        val dateMaxString = sqlDateFormat.format(dateMax)
+        val sql =
+            "SELECT SUM(amount) FROM bank_lines WHERE date>='$dateMinString' AND date<='$dateMaxString' AND account = '$accountType'"
+        return jdbcTemplate.queryForObject<Int>(sql) ?: 0
     }
 
 

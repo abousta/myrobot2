@@ -14,4 +14,9 @@ class ComptaController(private val comptaService: ComptaService) {
     fun importNewLines() {
         comptaService.importNewLines()
     }
+
+    @PostMapping("/check-balances")
+    fun checkBalances() {
+        comptaService.checkBalances()
+    }
 }

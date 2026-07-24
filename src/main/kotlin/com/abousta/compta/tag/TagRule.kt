@@ -1,4 +1,4 @@
-package com.abousta.compta
+package com.abousta.compta.tag
 
 data class TagRule(
     val labels: Set<String>,

@@ -1,6 +1,12 @@
 package com.abousta.compta
 
-import com.abousta.compta.AccountType.PERSO
+import com.abousta.compta.account.AccountType
+import com.abousta.compta.account.AccountType.PERSO
+import com.abousta.compta.balance.BalanceService
+import com.abousta.compta.bank_line.BankLine
+import com.abousta.compta.bank_line.BankLineRepository
+import com.abousta.compta.infrastructure.Money
+import com.abousta.compta.tag.TagRule
 import com.microsoft.playwright.BrowserType
 import com.microsoft.playwright.Locator
 import com.microsoft.playwright.Playwright
@@ -11,12 +17,12 @@ import java.nio.file.Files
 import java.nio.file.Path
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
-import kotlin.io.path.writeText
 
 @Service
 class ComptaService(
     private val bankLineRepository: BankLineRepository,
-    @Value($$"${csv_folder}") private val csvFolder: Path
+    private val balanceService: BalanceService,
+    @Value($$"${csv_folder}") private val csvFolder: Path,
 ) {
     private val csvDateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy")
     private lateinit var tagRules: List<TagRule>
@@ -147,7 +153,11 @@ class ComptaService(
                     frame.getByText("Solde opérationnel").first().locator("..").locator("..").locator("span").last()
                         .textContent().trim()
                 println("solde $account = $solde")
-                csvFolder.resolve("compte_${account.name.lowercase()}_solde").writeText(solde)
+                val balanceInCents = solde.replace(" ", "").replace(".", "").replace("EUR", "").toInt()
+                val lastBalance = balanceService.lastBalance(account)
+                if (lastBalance.date.isBefore(LocalDate.now())) {
+                    balanceService.appendBalance(LocalDate.now(), balanceInCents, account)
+                }
 
                 // Aller sur la page de téléchargement des opérations
                 frame.getByText("Télécharger les opérations").click()
@@ -193,5 +203,31 @@ class ComptaService(
             }
 
         }
+    }
+
+    /**
+     * Vérifie que le nouveau solde correspond bien à la somme des mouvements
+     */
+    fun checkBalances() {
+        for (accountType in AccountType.entries) {
+            // Lire dans le fichier solde la somme attendue
+            val (preLastBalance, lastBalance) = balanceService.lastTwoBalances(accountType)
+            val expectedSum = lastBalance.amount.cents - preLastBalance.amount.cents
+            // Lire dans la bdd la somme enregistrée entre ces deux dates
+            val storedSum =
+                bankLineRepository.sumBetweenTwoDates(preLastBalance.date.plusDays(1), lastBalance.date, accountType)
+            if (storedSum != expectedSum) {
+                println(
+                    "ATTENTION. Compte $accountType - Somme attendue par le relevé des soldes = ${Money(expectedSum)}. Mais somme relevée dans la bdd = ${
+                        Money(
+                            storedSum
+                        )
+                    }. Différence = ${Money((expectedSum - storedSum))}"
+                )
+            } else {
+                println("SOLDES OK pour compte $accountType")
+            }
+        }
+
     }
 }
