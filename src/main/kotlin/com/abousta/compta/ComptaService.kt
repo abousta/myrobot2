@@ -1,7 +1,6 @@
 package com.abousta.compta
 
 import com.abousta.compta.AccountType.PERSO
-import com.abousta.myrobot2.bank.tempFolderPath
 import com.microsoft.playwright.BrowserType
 import com.microsoft.playwright.Locator
 import com.microsoft.playwright.Playwright
@@ -10,7 +9,6 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import java.nio.file.Files
 import java.nio.file.Path
-import java.nio.file.Paths
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import kotlin.io.path.writeText

@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="DataSourcePerFileMappings">
-    <file url="file://$PROJECT_DIR$/src/main/kotlin/com/abousta/myrobot2/bank/BankLineService.kt" value="29a2d82f-1d05-4341-a33f-5ca9bda91a5b" />
-    <file url="file://$PROJECT_DIR$/src/main/kotlin/com/abousta/myrobot2/bank/StoreLinesFromExistingCSVFiles.kt" value="29a2d82f-1d05-4341-a33f-5ca9bda91a5b" />
-  </component>
-</project>
