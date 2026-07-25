@@ -5,7 +5,6 @@ import com.abousta.compta.account.AccountType.PERSO
 import com.abousta.compta.balance.BalanceService
 import com.abousta.compta.bank_line.BankLine
 import com.abousta.compta.bank_line.BankLineRepository
-import com.abousta.compta.excel_igam.IgamExcelService
 import com.abousta.compta.infrastructure.Money
 import com.abousta.compta.tag.TagRule
 import com.microsoft.playwright.BrowserType
@@ -23,7 +22,6 @@ import java.time.format.DateTimeFormatter
 class ComptaService(
     private val bankLineRepository: BankLineRepository,
     private val balanceService: BalanceService,
-    private val igamExcelService: IgamExcelService,
     @Value($$"${csv_folder}") private val csvFolder: Path,
 ) {
     private val csvDateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy")
@@ -231,9 +229,5 @@ class ComptaService(
             }
         }
 
-    }
-
-    fun fillIgamExcel() {
-        igamExcelService.fillIgamExcelService()
     }
 }

@@ -19,9 +19,4 @@ class ComptaController(private val comptaService: ComptaService) {
     fun checkBalances() {
         comptaService.checkBalances()
     }
-
-    @PostMapping("/fill-igam-excel")
-    fun fillIgamExcel() {
-        comptaService.fillIgamExcel()
-    }
 }
