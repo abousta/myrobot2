@@ -31,6 +31,9 @@ where (account = 'PRO' or tags like '%Abousta.com%')
   AND date like '2026-07-%'
 order by date;
 
+-- INCONNUS BANCAIRES à envoyer à Marie
+select date, label, printf('%.2f EUR', amount / 100.0) AS amount from bank_lines where tags='[]' order by date
+
 -- DECLA TVA : A déclarer en case A1 du formulaire 3310 CA3 + case 08 (sans les centimes)
 select date, tags, amount, vat, (amount-vat) as ht, (amount-vat)/100 as to_declare from bank_lines where tags like '%Revenus%' and account='PRO' and date like '2026-07-%';
 
@@ -40,3 +43,6 @@ select sum(vat)/100 as control from bank_lines where tags like '%Revenus%' and a
 -- DECLA TVA : TVA à déduire : A déclarer en case 20 du formulaire 3310 CA3 (sans les centimes)
 select sum(vat)/100 as to_declare, date, account, label, tags, vat from bank_lines where tags not like '%Revenus%' and (account = 'PRO' or tags like '%Abousta.com%') and vat>0 and date like '2026-07-%' order by date;
 
+
+-- WORKSPACE
+select * from bank_lines where tags like '%Frais de scolarité%'
