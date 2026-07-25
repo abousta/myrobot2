@@ -33,6 +33,9 @@ dependencies {
     // Jsoup
     implementation("org.jsoup:jsoup:1.22.2")
 
+    // JXL (jusqu'à disparition du excel igam et gestion tva à part)
+    implementation("net.sourceforge.jexcelapi:jxl:2.6.12")
+
     // Test
     testImplementation(kotlin("test"))
 

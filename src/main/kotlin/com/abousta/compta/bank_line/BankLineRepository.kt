@@ -57,5 +57,12 @@ class BankLineRepository(
         return jdbcTemplate.queryForObject<Int>(sql) ?: 0
     }
 
+    fun findLastProBankLines(dateMin: LocalDate): List<BankLine> {
+        val dateMinString = sqlDateFormat.format(dateMin)
+        val sql =
+            "SELECT * FROM bank_lines WHERE date>'$dateMinString' AND (account='PRO' or tags like '%Abousta.com%') order by date asc"
+        return jdbcTemplate.query(sql, rowMapper)
+    }
+
 
 }
