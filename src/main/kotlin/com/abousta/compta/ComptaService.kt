@@ -153,7 +153,9 @@ class ComptaService(
                     frame.getByText("Solde opérationnel").first().locator("..").locator("..").locator("span").last()
                         .textContent().trim()
                 println("solde $account = $solde")
-                val balanceInCents = solde.replace(" ", "").replace(".", "").replace("EUR", "").toInt()
+                val balanceInCents =
+                    solde.replace(" ", "").replace(" ", "").replace(",", "").replace(".", "").replace("EUR", "")
+                        .replace("€", "").toInt()
                 val lastBalance = balanceService.lastBalance(account)
                 if (lastBalance.date.isBefore(LocalDate.now())) {
                     balanceService.appendBalance(LocalDate.now(), balanceInCents, account)
