@@ -31,17 +31,16 @@ class ComptaService(
     fun init() {
         val reader = object {}.javaClass.classLoader
             .getResourceAsStream("tags_rules")
-            ?.bufferedReader()
-            ?: error("rules.txt introuvable")
+            ?.bufferedReader()!!
 
         tagRules = reader.useLines { lines ->
             val filtered = lines
                 .map(String::trim)
-                .filter { it.isNotEmpty() && !it.startsWith("#") }
+                .filter { it.isNotBlank() && !it.startsWith("#") }
                 .toList()
 
             require(filtered.size % 2 == 0) {
-                "Nombre impair de lignes dans rules.txt"
+                "Nombre impair de lignes dans tags_rules"
             }
 
             filtered.chunked(2).map { (conditions, tags) ->

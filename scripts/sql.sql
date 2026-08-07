@@ -17,12 +17,44 @@ order by date;
 
 -- HEBDO
 -- INCONNUS BANCAIRES à envoyer à Marie
-select date, label, printf('%.2f EUR', amount / 100.0) AS amount from bank_lines where tags='[]' order by date
+select date, label, printf('%.2f EUR', amount / 100.0) AS amount
+from bank_lines
+where tags = '[]'
+order by date;
 
+
+-- DECLA TVA : A déclarer en case A1 du formulaire 3310 CA3 + case 08 (sans les centimes)
+select date, amount, vat, (amount - vat) as ht, (amount - vat) / 100 as to_declare_A1_and_08
+from bank_lines
+where tags like '%Revenus%'
+  and account = 'PRO'
+  and date like '2026-07-%';
+
+-- DECLA TVA : Contrôle : doit correspondre au montant reporté à côté de la case 08
+select sum(vat) / 100 as control
+from bank_lines
+where tags like '%Revenus%'
+  and account = 'PRO'
+  and date like '2026-07-%';
+
+-- DECLA TVA : TVA à déduire : A déclarer en case 20 du formulaire 3310 CA3 (sans les centimes)
+select date, tags, vat, sum(vat) / 100 as to_declare_case_20
+from bank_lines
+where tags not like '%Revenus%'
+  and (account = 'PRO' or tags like '%Abousta.com%')
+  and vat > 0
+  and date like '2026-07-%'
+order by date;
 
 -- Les derniers relevés
 select *
 from bank_lines
+order by date desc;
+
+-- Les derniers relevés perso
+select *
+from bank_lines
+where account = 'PERSO'
 order by date desc;
 
 -- Les derniers relevés pro
@@ -48,19 +80,21 @@ order by year;
 
 
 
--- DECLA TVA : A déclarer en case A1 du formulaire 3310 CA3 + case 08 (sans les centimes)
-select date, tags, amount, vat, (amount-vat) as ht, (amount-vat)/100 as to_declare from bank_lines where tags like '%Revenus%' and account='PRO' and date like '2026-07-%';
-
--- DECLA TVA : Contrôle : doit correspondre au montant reporté à côté de la case 08
-select sum(vat)/100 as control from bank_lines where tags like '%Revenus%' and account='PRO' and date like '2026-07-%';
-
--- DECLA TVA : TVA à déduire : A déclarer en case 20 du formulaire 3310 CA3 (sans les centimes)
-select date, account, label, tags, vat, sum(vat)/100 as to_declare from bank_lines where tags not like '%Revenus%' and (account = 'PRO' or tags like '%Abousta.com%') and vat>0 and date like '2026-07-%' order by date;
-
-
 -- WORKSPACE
-select * from bank_lines where tags like '%Frais de scolarité%'
-select * from bank_lines where account='PRO' order by date desc
-select * from bank_lines where account='PRO' and amount=9240 or amount=-9240
+select *
+from bank_lines
+where tags like '%Frais de scolarité%'
+select *
+from bank_lines
+where account = 'PRO'
+order by date desc
+select *
+from bank_lines
+where account = 'PRO' and amount = 9240
+   or amount = -9240
 
-select * from bank_lines where balance is not null and account='PRO' order by date desc
+select *
+from bank_lines
+where balance is not null
+  and account = 'PRO'
+order by date desc
