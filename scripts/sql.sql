@@ -12,7 +12,7 @@ select id, date, label, tags, amount, vat
 from bank_lines
 where (account = 'PRO' or tags like '%Abousta.com%')
   AND vat is null
-  AND date like '2026-07-%'
+  AND date like '2026-08-%'
 order by date;
 
 -- HEBDO
@@ -103,3 +103,5 @@ order by date desc
 select * from bank_lines where label like '%OVH%' order by date desc
 
 update bank_lines set tags='["Lila", "Psychiatre"]' where label like '%BELLET LUCILE%'
+
+select * from bank_lines order by date desc
