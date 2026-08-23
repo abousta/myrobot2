@@ -104,7 +104,9 @@ class ComptaService(
 
         // Bouygues
         if (label.startsWith("PRELEVEMENT DE Bouygues Telecom")) {
-            if (amount.cents == -2399) return setOf("Abousta.com", "Internet")
+            if (label.contains("09xxxxx529")) return setOf("Abousta.com", "Internet")
+            if (label.contains("06xxxxx045")) return setOf("Consommation récurrente", "Téléphone", "Abonnement Marie")
+            if (label.contains("07xxxxx943")) return setOf("Abousta.com", "Téléphone portable")
         }
 
         // Intermarché
