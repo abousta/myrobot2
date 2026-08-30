@@ -100,7 +100,7 @@ where balance is not null
   and account = 'PRO'
 order by date desc
 
-select * from bank_lines where label like '%OVH%' order by date desc
+select * from bank_lines where label like '%PRELEVEMENT DE SGC VIGNOBLE%' order by date desc
 
 update bank_lines set tags='["Lila", "Psychiatre"]' where label like '%BELLET LUCILE%'
 
