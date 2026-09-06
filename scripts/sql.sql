@@ -12,7 +12,7 @@ select id, date, label, tags, amount, vat
 from bank_lines
 where (account = 'PRO' or tags like '%Abousta.com%')
   AND vat is null
-  AND date like '2026-08-%'
+  AND date like '2026-09-%'
 order by date;
 
 -- HEBDO
