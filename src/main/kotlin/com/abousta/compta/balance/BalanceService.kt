@@ -29,7 +29,7 @@ class BalanceService(@Value($$"${balance_folder}") private val balanceFolder: Pa
     fun appendBalance(date: LocalDate, amountInCents: Int, accountType: AccountType) {
         val dateString = date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
         val balanceFile = balanceFolder.resolve("balance_${accountType.name.lowercase()}")
-        balanceFile.appendText("$dateString $amountInCents")
+        balanceFile.appendText("\n$dateString $amountInCents")
     }
 
     fun lastTwoBalances(accountType: AccountType): Pair<Balance, Balance> {
