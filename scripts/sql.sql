@@ -1,11 +1,11 @@
--- HEBDO
+-- HEBDO - 1 - TAGS MANQUANTS
 -- Les derniers relevés qui n'ont pas de tags
 select *
 from bank_lines
 where tags = '[]'
 order by date desc;
 
--- HEBDO
+-- HEBDO - 2 - TVA MANQUANTS
 -- Les mouvements pro dont on n'a pas calculé la tva
 -- (attention de vérifier le mois plus bas)
 select id, date, label, tags, amount, vat
@@ -15,7 +15,7 @@ where (account = 'PRO' or tags like '%Abousta.com%')
   AND date like '2026-09-%'
 order by date;
 
--- HEBDO
+-- HEBDO - 3 - MARIE
 -- INCONNUS BANCAIRES à envoyer à Marie
 select date, label, printf('%.2f EUR', amount / 100.0) AS amount
 from bank_lines
@@ -28,14 +28,14 @@ select date, amount, vat, (amount - vat) as ht, (amount - vat) / 100 as to_decla
 from bank_lines
 where tags like '%Revenus%'
   and account = 'PRO'
-  and date like '2026-07-%';
+  and date like '2026-08-%';
 
 -- DECLA TVA : Contrôle : doit correspondre au montant reporté à côté de la case 08
 select sum(vat) / 100 as control
 from bank_lines
 where tags like '%Revenus%'
   and account = 'PRO'
-  and date like '2026-07-%';
+  and date like '2026-08-%';
 
 -- DECLA TVA : TVA à déduire : A déclarer en case 20 du formulaire 3310 CA3 (sans les centimes)
 select date, tags, vat, sum(vat) / 100 as to_declare_case_20
@@ -92,16 +92,17 @@ order by date desc
 select *
 from bank_lines
 where account = 'PRO' and amount = 9240
-   or amount = -9240
+   or amount = -9240;
 
 select *
 from bank_lines
 where balance is not null
   and account = 'PRO'
-order by date desc
+order by date desc;
 
-select * from bank_lines where label like '%PRELEVEMENT DE SGC VIGNOBLE%' order by date desc
+select * from bank_lines where label like '%VIREMENT INSTANTANE A TAO BOUSTA%' order by date desc;
 
-update bank_lines set tags='["Lila", "Psychiatre"]' where label like '%BELLET LUCILE%'
+update bank_lines set tags='["Lila", "Psychiatre"]' where label like '%BELLET LUCILE%';
 
 select * from bank_lines order by date desc
+
