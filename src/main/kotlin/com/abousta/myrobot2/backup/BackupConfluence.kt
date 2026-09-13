@@ -110,7 +110,7 @@ fun main() {
         page.navigate("https://id.atlassian.com/login")
 
         // Saisie email et mot de passe récupéré
-        page.fill("input#username-uid1", EMAIL)
+        page.fill("input[name='username']", EMAIL)
         page.click("button#login-submit")
         page.waitForSelector("input#password") // attendre le champ password
         page.fill("input#password", atlassianPassword)
