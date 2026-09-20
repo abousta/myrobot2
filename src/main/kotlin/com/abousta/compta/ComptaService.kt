@@ -163,7 +163,7 @@ class ComptaService(
                 }
 
                 // Aller sur la page de téléchargement des opérations
-                frame.getByText("Télécharger les opérations").click()
+                frame.getByText("Télécharger les opérations").first().click()
 
                 // Sélectionner le compte dans la liste déroulante
                 frame.locator("input#compte").waitFor()
